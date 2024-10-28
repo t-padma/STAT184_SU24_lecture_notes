@@ -1,0 +1,203 @@
+---
+title: "`if-else` statements and functions in R"
+output: html_notebook
+---
+
+## `if else` statements
+
+This section focuses on understanding how `if else` statements work in R. The general syntax for `if else` statements are:
+
+```
+if (condition) {
+    Expr1
+} else {
+    Expr2
+}
+```
+Maintain proper indentation so that your code is easy to read for you as well others.
+
+### Example 1:
+```{r}
+score <- 70
+
+if (score >= 50){
+  print("Pass")
+} else {
+  print("Fail")
+}
+
+```
+
+### Example 2:
+```{r}
+A <- matrix(1:4, nrow = 2)
+
+if (det(A) != 0){
+  A %*% t(A)
+} else {
+  print("det is 0")
+}
+
+```
+
+
+### Example 3:
+Let us use `if else` statement to detect if a number is odd or even. Here we use [modular arithmetic](https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic).
+```{r}
+N <- 10
+
+if (N%%2==0){
+  print("Even")
+} else {
+  print("Odd")
+}
+
+```
+
+### Practice Question 1
+A vector $v$ is defined in the code block below. If the length of the vector is even, return the number corresponding to half the vector length. If the vector length is odd, return the vector length as it is.
+
+E.g. if $v$ is the vector $(1,2,3,4,5)$, then the code must return $5$. If the vector $v$ is $(10,11,16,16)$, the the code must return $2$.
+```{r}
+v <- c(7, 8, 9, 30, 27, 18, 30)
+
+
+```
+
+
+## Functions
+Note that the above examples can be generalized by defining them inside a function. General syntax for functions:
+
+```
+function_name <- function(arg1, arg2, ....){
+
+}
+```
+Notice that all the example codes above, can be generalized using functions in R
+
+### Example 1:
+```{r}
+pass_or_fail <- function(score){
+  
+  # input = score is an integer
+  
+  if (score >= 50){
+  print("Pass")
+} else {
+  print("Fail")
+}
+}
+
+pass_or_fail(20); pass_or_fail(50)
+```
+
+### Example 2:
+```{r}
+f1 <- function(A){
+  
+  # input A is a square matrix
+  
+  if (det(A) != 0){
+  A %*% t(A)
+} else {
+  print("det is 0")
+}
+}
+
+f1(matrix(c(1,1,2,2), nrow = 2))
+```
+
+
+### Example 3:
+Let us use `if else` statement to detect if a number is odd or even. Here we use [modular arithmetic](https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic).
+```{r}
+odd_or_even <- function(N){
+  if (N%%2==0){
+  print("Even")
+} else {
+  print("Odd")
+}
+}
+```
+
+### Practice Problem
+Write a function that takes a matrix as input and gives the number of rows and columns as output.
+```{r}
+dim_of_matrix <- function(A){
+  # input is a matrix of arbitrary size
+  
+}
+
+```
+
+Note that we can define functions with more than one variable/argument as inputs.
+
+### Example 4:
+Let us write a function that takes a matrix and a vector as an input
+```{r}
+f2 <- function(A, x){
+  
+  # make sure "x" is a matrix type object
+  x = as.matrix(x, ncol = 1)
+  
+  # check if the product Ax is well-defined
+  if (ncol(A) == nrow(x)){
+    A%*%x
+  } else {
+    return("matrix-vector sizes not compatible")
+  }
+}
+
+B <- matrix(1:4, nrow = 2)
+y <- c(1,2)
+f2(B, y)
+```
+
+### Practice problem 1
+Write a function that takes 3 numbers as input and the output is the minimum of the three numbers.
+```{r}
+min_of_three_nums <- function(x, y, z){
+  
+  
+}
+```
+
+Can we generalize the function to take a set of $n$ numbers and output the smallest of the $n$ numbers?
+```{r}
+min_of_n_nums <- 
+
+```
+
+### Practice problem 2
+Note that the function `rnorm` samples points from the normal distribution. It's syntax is:
+```{r}
+# sample 10 points from standard normal
+rnorm(10)
+
+# sample 10 points from normal distribution with mean 2 and std deviation 4.
+rnorm(n = 10, mean = 2, sd = 4)
+```
+
+Write a that takes two arguments $m$ and $n$. Return a matrix of size $m \times n$ such that all it's entries are sampled from standard normal distribution.
+
+```{r}
+normal_matrix <- function(m, n){
+  
+}
+
+```
+
+
+### Practice problem 3
+Write a function that takes matrices $A$ and $B$ as input. Return the product (you can use `A%*%B`) if the matrices have compatible size. Otherwise, your function should return "Matrices product is not well-defined".
+
+```{r}
+
+
+```
+
+
+
+
+
+

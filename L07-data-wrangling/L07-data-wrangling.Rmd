@@ -1,0 +1,213 @@
+---
+title: "L07 - Data Wrangling"
+author: 
+  - Presenter- Padma Tanikella 
+  - Content Credit- Dr. Matthew Beckman
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Today's class will involve an in class activity where you practice data wrangling. 
+
+## Agenda
+
+- Introduce some software and commands that ...
+    - make it easy to access data tables and see how they are structured
+        - For example: `data()`, `View()`, `help()`, 
+        - (more coming in Chapter 10)
+    - learn about data verbs 
+    
+    
+## Three Important Concepts 
+
+1. Data can be usefully organized into tables with "cases" and "variables."  
+    - In "tidy data" every case is the same sort of thing (e.g. a person, a car, a year, a country in a year) 
+    - We sometimes even modify data in order to change what the cases represent in order to better represent a point.
+
+2. Data graphics and "glyph-ready" data
+    - each case corresponds to a "glyph" (mark) on the graph
+    - each variable to a graphical attribute of that glyph such as x- or y-position, color, size, length, shape, etc. 
+    - same is true for more technical tools (e.g., models, predictions, etc.) 
+
+3. When data are not yet in glyph-ready form, you can transform (i.e. wrangle) them into glyph-ready form.  
+    - Such transformations are accomplished by performing one or more of a small set of basic operations on data tables
+    - This is the work of data "verbs" 
+    
+    
+## Learning about the raw data
+
+There are lots of ways to load data into your environment
+
+- Most real data sources will require you to 
+    - read a file (e.g., CSV) 
+    - query a database (e.g., SQL)
+    - configure an API
+    - scrape from the web
+- For convenience, many STAT 184 data sets are accessed from R packages or CSV files
+- When acquiring data, it's very important to pause and think about data provenance/origins
+    - What might be useful to learn?
+    - How is this accomplished?
+    - Why does it matter?
+    
+
+## Recall: Key goals of a careful Exploratory Data Analysis?
+
+1. **Examine the data source:** variable types, coding, missingness, summary statistics/plots, who/what/when/where/why/how data were collected
+2. **Discover features that influence may modeling decisions:** investigate potential outliers, consideration for recoding variables (e.g., numeric data that's functionally dichotomous), evaluate correlation structure (e.g., autocorrelation, hierarchy, spatial/temporal proximity)
+3. **Address research questions:** build intuition and note preliminary observations/conclusions related to each research question.  Also, note observations that prompt you to refine your research questions or add new questions to investigate
+
+## Guided practice 
+
+- `Minneapolis2013` data set in the `dcData` package
+  - To do this, we need to download the package from GitHub
+
+```{r}
+
+# Install the package from GitHub
+# The very first time you run this, uncomment the 4 lines below
+
+# install.packages("devtools")
+# library(devtools)
+# library(usethis)
+# install_github("mdbeckman/dcData")
+library(dcData)
+data("Minneapolis2013", package = "dcData")
+
+
+```
+
+
+### Q1 : Looking at the dataset
+Answer the following questions about the dataset:
+
+1. What is the setting for the data?  
+    - What are they about?
+    - Who collected them?
+    - Why were they collected?
+    - etc
+2. How many cases are there?
+3. In your own words, what kind of thing do the cases represent? 
+4. How many variables are there?  What are their names?
+5. Pick out three of the variables and say whether
+    - the variable is quantitative or categorical
+    - if categorical (R calls this a "factor"), what are some levels of the variable
+    - if quantitative, what are the units of measurement of the variable.
+
+Click [here](https://en.wikipedia.org/wiki/Instant-runoff_voting) to learn about rank choice voting (also called instant run off voting). 
+
+
+
+### Question 2
+Create a table called `VoteResults` recording the **first** choice of each of 80101 individual precincts in the 2013 mayoral election. 
+
+```{r}
+# Hint: use tidyverse functions
+
+VoteResults <-
+
+```
+
+
+### Question 3
+Based on what we learnt about the grammar of `ggplot2` graphics, construct a _sorted_ bar chart of the `VoteResults` data. Label the x-axis and y-axis appropriately.
+
+```{r}
+# Hint: use geom_bar() to construct bar charts
+# look at how the reorder() function works
+
+```
+
+
+### Question 4
+Run the following code:
+```{r}
+VoteResults %>% 
+  arrange( desc(votes) ) %>%
+  head()   
+```
+
+Compare the `Minneapolis2013` data table and the wrangled data table printed above.
+
+1. Do they have the same number of cases?
+2. Do the cases in the two tables represent the same sort of thing?
+3. Do the two tables have any variable(s) in common?
+4. How are the two tables are related to one another?
+
+
+## Why we wrangle
+
+Data wrangling **prepares** the data for analysis. 
+
+- convert to tidy form for computing
+- prepare glyph-ready data for visualization
+- prepare data for modeling (e.g., exploratory, inferential, predictive)
+
+
+## Different types of functions
+
+
+- **Reduction functions**
+    - inputs are **variables** 
+    - results are **scalar**
+    - examples: `sum()`, `mean()`, `sd()`, `n()`, `n_distinct()`
+- **Transformation functions**
+    - inputs are **variables**; 
+    - results are **variable**
+    - examples: `mutate`, `rename`
+      - utilizes functions/operators such as +, -, *, /, ^, logicals, `round()`, `log()` 
+- **Data verbs**
+    - inputs are **data frames**
+    - results are **data frames**
+    - examples: `summarise()`, `group_by()`
+
+
+
+Let's use some other reduction functions, transformation functions, and data verbs with the some NFL data
+
+
+### Question 5
+What is the dataset describing? Use R commands to get a preliminary understanding of the dataset at hand.
+```{r}
+dat.football <- read_tsv(file = "https://raw.githubusercontent.com/ada-lovecraft/ProcessingSketches/master/Bits%20and%20Pieces/Football_Stuff/data/nfl-salaries.tsv")
+
+
+
+
+```
+
+
+### Question 6
+Use `ggplot2` graphics to construct a graphical summary of the dataset. What information does the graphical summary tell about the dataset.
+```{r}
+
+```
+
+
+### Question 7
+What is the highest salary and which player(s) earn that amount?
+
+```{r}
+
+```
+
+
+### Question 8
+What is the team with the highest paid roster, and what was their total pay? 
+What is the team with the lowest paid roster, and what was their total pay?
+
+Note: Paid roster is the total salary of all the players in the team.
+
+```{r}
+
+```
+
+
+
+
+
+
+

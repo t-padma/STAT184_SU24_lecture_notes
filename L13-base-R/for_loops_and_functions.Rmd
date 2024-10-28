@@ -1,0 +1,272 @@
+---
+title: "for loops in R"
+output: html_notebook
+---
+
+## `for` loops
+
+The general syntax for `for` loop:
+```
+for (variable in vector) {
+  
+}
+```
+
+For loops are used when we observe a patter that repeats itself again and again. If you are working with for loops for the first time, please note that it takes time to get used to writing for loops. So do not worry if you get confused or frustrated.
+
+### Example 1
+Let us add all numbers upto N = 10. Understand how the for loop works by looking at intermediate outputs printed below.
+```{r}
+N <- 10
+
+# initialize a variable to store the sum in
+total = 0
+
+for (i in 1:10) {
+  
+  # value of total initially
+  total_inital = total
+  # update total variable
+  total = total + i
+  # updated total value
+  total_updated = total
+  
+  print(paste("Iteration", i, " initial total value = ", total_inital, " updated total value = ", total_updated  ))
+  
+}
+```
+
+Notice that we can define a function that adds upto any N numbers using the above code for N =10. I have commented lines that help us understand how the for loop works since these values are not required to know the total sum of first N numbers.
+
+```{r}
+add_upto_N <- function(N){
+  
+  for (i in 1:N){
+  
+  # value of total initially
+  # total_inital = total
+  # update total variable
+  total = total + i
+  # updated total value
+  # total_updated = total
+  
+  #print(paste("Iteration", i, " initial total value = ", total_inital, " updated total value = ", total_updated  ))
+  
+  }
+  
+  return(total)
+
+}
+
+```
+
+Notice that the total value is returned at the end of for loop so that we get the final updated value of the variable `total`.
+
+
+### Example 2:
+Let us now look at how to compute the dot product of vectors $v1 = (1,2,3)$ and $v2 = (4,5,6)$.
+
+```{r}
+v1 <- c(1, 2, 3)
+v2 <- c(4, 5, 6)
+
+# Recall that R does element wise multiplication of two vectors. 
+v1*v2
+
+# so inner product of v1, v2 is:
+sum(v1*v2)
+```
+
+Notice that `sum(v1*v2)` is the dot product of any two vectors `v1` and `v2`. These vectors can be of any length as well. So, we can now write a function that computes the dot product of any two vectors v1 and v2.
+
+```{r}
+dot_product <- function(v1, v2){
+  # v1,v2 are vectors
+  
+  return(sum(v1*v2))
+}
+
+
+dot_product(c(1,2,3,4), c(5,6,7,8))
+```
+
+### Practice problem:
+Notice that the `dot_product` function is well-defined only when v1 and v2 have the same length. Extend the `dot_product` function to include an if-else statement that checks if `dot_product(v1, v2)` is well defined.
+
+Hint: Look at Example 4 under the if-else statement examples.
+
+```{r}
+
+
+```
+
+
+### Example 3
+
+Dot product between v1 and v2 can be written using a `for` loop as well.
+```{r}
+v1 <- c(1, 2, 3)
+v2 <- c(4, 5, 6)
+
+vec_length <- length(v1) # or length(v2)
+
+dot_prod <- 0
+
+for (i in 1:vec_length) {
+  dot_prod = dot_prod + v1[i]*v2[i]
+}
+
+dot_prod
+```
+
+Do you notice any similarity with that of Example 1?
+
+Let us try to generalize the code to any two vectors of equal length. 
+
+```{r}
+
+dot_prod <- 0
+dot_product_for_loop <- function(v1,v2){
+  
+  vec_length <- length(v1) # or length(v2)
+  
+  for (i in 1:vec_length) {
+  dot_prod = dot_prod + v1[i]*v2[i]
+}
+   return(dot_prod)
+}
+
+```
+
+Notice where we return the dot product value and where we initialize it. It is important you understand place these two pieces of code.
+
+### Example 4
+Let us try to write a program that takes a vector $v$ and input and returns a "reversed" vector. 
+
+E.g. If $v = (11, 50, 93, 84, 65)$, then our function should return $w = (65, 84, 93, 50, 11)$.
+
+Let $v[i]$ denote the i-th element of vector $v$. What we need to notice here is the following pattern:
+
+* $v[1] = 11, v[2] = 50, v[3] = 93, v[4] = 84, v[5] = 65$
+* $w[5 - 1 + 1] = 11, w[5 - 2 + 1] = 50, w[5 - 3 + 1] = 93, w[5 - 4 + 1] = 84, w[5 - 5 + 1] = 65$
+
+In general, the i-th element of $v$, i.e. $v[i]$, will be equal to the $5 - i + 1$ element of vector $w$, i.e. $w[5 - i + 1]$. So
+
+$$
+v[i] = w[5 - i + 1]
+$$
+
+Now that we have noticed this pattern, we can try writing a for loop to reverse the vector $v$.
+```{r}
+# vector we want to "reverse"
+v <- c(11, 50, 93, 84, 65)
+
+# initialize the vector w in which we will save the "reversed" vector v
+w <- c(1:5)
+
+# number of iterations required
+num_iter <- length(v)
+
+
+# notice that number of for loop iterations reuired is equal to length of vector v
+for (i in 1:num_iter) {
+  
+  w[num_iter - i + 1] = v[i]
+  
+}
+
+w
+```
+
+Let us now try to generalize the above code to reverse any arbitrary vector $v$.
+```{r}
+reverse_vector <- function(v){
+  
+  # number of iterations required
+  num_iter <- length(v)
+  
+  # initialize the vector w in which we will save the "reversed" vector v
+  w <- c(1:num_iter)
+  
+  # store the reversed vector in w
+  for (i in 1:num_iter) {
+  
+  w[num_iter - i + 1] = v[i]
+  
+  }
+  
+  # we return w AFTER we complete running the for loop
+  return(w)
+  
+}
+
+reverse_vector(c(13:21))
+```
+
+Notice that we return the value of $w$ **after** the for loop is implemented.
+
+### Practice problems
+An Arithmetic Progression (AP) is a sequence of numbers defined by initial value ($a$) and common difference ($d$).
+
+E.g. AP sequence with $a_1 = 1$ and $d = 3$ will be defined as $a_n = a_1 + (n-1)d$
+
+* $a_1 = 1$
+* $a_2 = a_1 + (2-1)d = 1 + 3 = 4$
+* $a_3 = a_1 + (3-1)d = 1 + 2.3 = 7$
+* $a_4 = a_1 + (4-1)d = 1 + 3.3 = 10$
+* Similarly $a_5, a_6, ...$
+
+Notice that the repetitive process here is how the $n-th$ term is defined in terms of $a$,$d$ and $n$. This is described by 
+
+$$
+a_n = a_1 + (n-1)d
+$$
+
+```{r}
+# we want to output first N elements of the AP sequence
+N <- 10
+
+# define a1 and d
+a1 <- 1; d <- 3
+
+# initialize a vector of length 10 that will store a_i in its i-th position
+a <- c(1:10)
+
+# How many iterations do we need?
+length_of_seq <- length(a)
+
+# Now use a for loop to construct the first N=10 elements of sequence and store these values in the vector a we initialized.
+
+```
+
+
+Can you try generalizing the above code by defining a function that takes $N$ as in put and outputs a vector $a$ of length $N$ containing the first N elements of AP with $a_1 = 1$ and $d=3$.
+
+```{r}
+AP_seq_N <- function(N){
+  
+  
+}
+
+```
+
+Can you generalize the `AP_seq_N` function to define a function that takes $a$, $d$ and $N$ as inputs and returns a vector $a$ of size $N$ such that the n-th element of $a$ represents the n-th element of the AP sequence.
+
+```{r}
+AP_seq <- function(a, d, N){
+  
+  
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+

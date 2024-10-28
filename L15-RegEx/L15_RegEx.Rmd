@@ -1,0 +1,116 @@
+---
+title: "Regular Expressions"
+subtitle: "Data Computing Ch 17"
+author: Padma Tanikella
+output: html_notebook
+---
+
+```{r}
+library(dcData)
+library(tidyverse)
+```
+
+## Introduction
+
+* Regular expressions (or RegEx) are a syntax for matching patterns in text. They allow us to detect, extract, replace, or remove text that satisfies a certain pattern, rather than just an exact string.
+
+* You can use regular expressions with any kind of text data, from books, to speeches, to legal documents, to tweets and social media posts. 
+
+* Let us start with an example to see what a RegEx is. The following example has been taken  from reference 1. 
+
+
+```{r}
+# The line of the judgment that indicates the case number
+case_text <- "In Case C-370/12,"
+
+
+# The line of the judgment that indicates the legal procedure
+procedure_text <- "REFERENCE for a preliminary ruling under Article 267 TFEU from the Supreme Court (Ireland), made by decision of 31 July 2012, received at the Court on 3 August 2012, in the proceedings"
+
+
+# The line of the judgment that lists the judges on the panel
+judges_text <- "composed of V. Skouris, President, K. Lenaerts (Rapporteur), Vice-President, A. Tizzano, R. Silva de Lapuerta, M. Ilešič, L. Bay Larsen, T. von Danwitz, A. Rosas, G. Arestis, J. Malenovský, M. Berger and E. Jarašiūnas, Presidents of Chambers, E. Juhász, A. Borg Barthet, U. Lõhmus, E. Levits, A. Ó Caoimh, J.-C. Bonichot, A. Arabadjiev, C. Toader, J.-J. Kasel, M. Safjan, D. Šváby, A. Prechal, C.G. Fernlund, J.L. da Cruz Vilaça and C. Vajda, Judges,"
+```
+
+* The string `[A-Z][a-z]+ [0-9]+ [A-Z]+` is the regular expression.
+
+```{r}
+str_extract(procedure_text, "[A-Z][a-z]+ [0-9]+ [A-Z]+")
+```
+
+* This regular expression translates to: “find a single capital letter, followed by one or more lower case letters, followed by a space, followed by one or more numbers, followed by a space, followed by one or more capital letters.”
+
+* This regular expression lets us extract the information we’re interested in based only on the pattern — not the exact text. We could use this regular expression to extract the legal basis of each case as long as the legal basis follows the _same_ pattern in all of the judgments. 
+
+* The `stringr` package (part of `tidyverse`) includes a variety of really useful functions for working with text.
+    * Detecting text: `str_detect()`, `str_count()`
+    * Extracting text: `str_extract()`, `str_extract_all()`
+    * Replacing text: `str_replace()`, `str_replace_all()`
+    * Removing text: `str_remove()`, `str_remove_all()`
+
+* The `stringr` package has other useful functions as well. E.g. `str_c()`, `str_trim()`.... 
+
+
+## RegEx Syntax
+
+* The syntax takes some time to get used to. Use the RStudio Cheat Sheet for `stringr`: <https://rstudio.github.io/cheatsheets/html/strings.html>
+
+* Regular expressions use various punctuation marks to match patterns in strings. The characters that have special meanings in regular expressions are called _meta characters_.
+
+```
+. # Match any single character (except a line break)
+? # Match the preceding item 0 or 1 times
++ # Match the preceding item 1 or more times
+* # Match the preceding 0 or more times
+^ # Match the start of a string
+$ # Match the end of a string
+- # Create a range in a character class
+| # The "or" operator
+[] # Create a character class
+() # Create a group
+{} # Create a quantifier
+\ # Escape a special character
+```
+
+* If you want to match a meta character, you need to indicate in your regular expression that you want to use the character literally. We do this by adding `\\` in front of the character. This is called _escaping_ the character. For example, to match a literal `+` in a string, we would use `\\+`.
+
+* We can match multiple characters by creating a character class. A character class is a set of characters, and it will match any character in the set. Use `[]` to create a character class.
+
+* Note that character classes are case sensitive, so `[abc]` will match `a` but not `A`. It doesn’t matter what order you put the characters in. `[abc]` is the same as `[cba]` and `[bca]`.
+
+* For numbers and letters, you can specify a range using `-`. For example, `[a-z]` will match all lower case letters and `[A-Z]` will match all upper case letters. `[0-9]` will match all numbers.
+
+* You can also make a character class that includes all characters but a certain set using `^`. To match all characters except `a`, `b`, and `c`, we could use `[^abc]`. Here, the `^` means “anything except what follows.”
+
+* Let us say that we want to match a date in YYY-MM-DD format. We could do that using the RegEx `[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]`, but that’s long and repetitive. This is where _quantifiers_ come into picture.
+
+* `?` will match the preceding item 0 or 1 times. `+` will match the preceding item 1 or more times.`*` will match the preceding item 0 or more times
+
+* We can also be more specific and say exactly how many times we want to match something using `{}`
+    * `{n}` : exactly $n$ times.
+    * `{n,m}` : between $n$ and $m$ times
+    * `{n,}`: $n$ or more times
+    
+* So two possible RegEx options for date in YYY-MM-DD format is:
+    * `[0-9]{4}-[0-9]{2}-[0-9]{2}`
+    * `[0-9]+-[0-9]+-[0-9]+`
+    
+
+* Let us say that we want to extract dates in the format DD Month YYYY.
+    * `[0-9]{1,2} [A-Z][a-z]+, [0-9]{4}`
+
+* _Outside_ of a character class, `^` means the start of a string and `$` means the end of the string. Let’s say we have a date in the format YYYY Month DD , like 2022 January 01.
+    * `[0-9]+$`, which means “find a sequence of numbers at the end of the string.”
+    * `^[0-9]+`, which means “find a sequence of numbers at the start of the string.”
+
+    
+
+## References
+1. [Regular expressions in R](https://jfjelstul.github.io/regular-expressions-tutorial/) by Joshua C. Fjelstul.
+2. 
+
+
+
+
+
+

@@ -1,0 +1,85 @@
+---
+title: "Data wrangling activity"
+author: "Padma Tanikella"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### In class activity
+```{r}
+library(tidyverse)
+library(dcData)
+library(tibble)      
+library(lubridate)
+
+data("presidential", package = "ggplot2")
+class(presidential)
+```
+
+```{r}
+presidential
+```
+
+We will add some more cases to the above dataset:
+```{r}
+# you can search the help for the `tribble` function if you want to figure it out what's happening
+AddPres <- tribble(~name, ~start, ~end, ~party,
+                     "Roosevelt", ymd("1933-03-04"), ymd("1945-04-12"), "Democratic",
+                    "Truman", ymd("1945-04-12"), ymd("1953-01-20"), "Democratic",
+                    "Trump", ymd("2017-01-20"), ymd("2021-01-20"), "Republican", 
+                    "Biden", ymd("2021-01-20"), ymd(today()), "Democratic")
+
+# append the rows of our two "data frames"
+Presidents <- bind_rows(presidential, AddPres)
+Presidents
+```
+
+
+Use the `Presidents` dataset to perform some data analysis. Answer the following questions.
+
+
+### Question 1
+Create a new column called `duration` that counts the number of years each person served as president. Let `Presidents_wrangled` be the R object that has the new column along with columns `name`, `start`, `end`. 
+
+```{r}
+
+```
+
+What kind of function did you use to answer this question?
+
+### Question 2
+Name the president who served the lest number of years as President. Who served the maximum number of years as president.
+```{r}
+
+```
+
+What kind of function did you use to answer this question?
+
+
+### Question 3
+How many of the presidents served more than four years but less than 8 years?
+
+```{r}
+
+```
+
+What kind of function did you use to answer this question?
+
+### Question 4
+Count the number of democrat and republican presidents in the data set. Additionally, count the total number of years republicans were presidents and the total number of years democrats were president. 
+
+```{r}
+
+```
+
+What kind of function did you use to answer this question?
+
+### Question 5
+How are the R data objects `data.frame` and `tibble` different from one another? 
+
+
+

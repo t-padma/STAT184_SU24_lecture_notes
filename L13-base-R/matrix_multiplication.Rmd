@@ -1,0 +1,28 @@
+---
+title: "Matrix multiplication usinf for loops"
+author: Padma Tanikella
+output: html_notebook
+---
+
+Objective: Write a function using for loop(s) to multiply input matrices $A$ and $B$. Everyone is recommended to go through this document after going through the contents of `for_loops_and_functions.Rmd` and `if_else_and_functions.Rmd` files.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+---
+title: "L01-Basic R class notes"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+# Basic Terminology
+* Difference between R and RStudio
+* Show the components of RStudio - editor, console, environment, final pane has help, output viewer, packages
+* $>$ is called prompt. It means that R is ready to take your command(s). 
+* Commands are "executed".
+* Tell about R sessions.
+* Marin stat lectures youtube channel.
+
+# Basic R computions
+
+```{r}
+## do these in console and in R script
+
+## mention about writing "neat code"
+5 + 6
+
+# show how environment stores a variable called total
+## explain R is case sensitive
+total <- 11
+
+## similarly we have sin(), cos(), log(), pi
+log(12); sin(1); pi; exp(0)
+
+## -Inf and +Inf exist as well
+1/0
+
+```
+
+
+```{r}
+
+# data in base-R
+data("iris")
+View(iris)
+head(iris)
+str(iris) # structure of iris data
+
+dim(iris)
+mean(iris$Sepal.Length)
+sd(iris$Sepal.Width)
+```
+
+```{r}
+help("plot")
+plot(iris$Sepal.Length, iris$Sepal.Width, xlab = "Sepal length", ylab = "Sepal width")
+```
+
+# Packages and libraries
+* install directly on Rstudio
+* using `install.packages()`
+* CRAN, bioconductor
+* `library()` and talk about "loading" packages.
+
+# Vectors and Matrices
+
+* creating vectors using `c()`
+* `seq()`, `t()`, `length()`, `rep()`
+* R performs element wise computation
+* try computing distance between vectors x and y
+* `matrix()`
+* For a matrix A, `A*A` vs `A%*%A`
+* `diag()`
+
+
+
+
+
+
+
+

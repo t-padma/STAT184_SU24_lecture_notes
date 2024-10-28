@@ -1,0 +1,82 @@
+---
+title: "ggplot2"
+author: "Padma Tanikella"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+For this activity, we will use the CPS85 data from the mosaicData package.
+```{r}
+library(mosaicData)
+head(CPS85)
+```
+
+#### Question 1
+Provide a brief description of the dataset.
+
+
+
+#### Question 2
+Last time, we saw how `facet_wrap` works. (Refer to lecture ) Today, we will try to understand `facet_grid`.
+
+
+* `facet_wrap()` just makes a seperate plot for each level of the categorical variable
+  * `facet_wrap( ~ categoricalVariable)`
+  
+* `facet_grid()` allows control of row & column facets
+* `facet_grid()` syntax:
+  * row and column facets: `facet_grid(rows ~ cols)`
+  * row facets only: `facet_grid( rows ~ . )` (note the required “`.`”)
+  * column facets only: `facet_grid( ~ cols)` (no “`.`” this time)
+
+Using the CPS85 data, provide a useful visual summary using `facet_grid`. 
+
+
+#### Question 3
+```{r}
+## code 1
+CPS85 %>% 
+  ggplot() +
+  geom_density(aes(x = wage, color = sex), alpha = 0.4)+
+  facet_grid( ~ married) +
+  xlim(0,30) 
+
+
+## code 2
+CPS85 %>% 
+  ggplot() +
+  geom_density(aes(x = wage, fill = sex), alpha = 0.4)+
+  facet_grid( ~ married) +
+  xlim(0,30)
+
+
+## code 3
+CPS85 %>% 
+  ggplot() +
+  geom_density(aes(x = wage, fill = sex, color = sex), alpha = 0.4)+
+  facet_grid( ~ married) +
+  xlim(0,30)
+```
+
+
+1. Notice that code 1 and code 2 are the same except for `color = sex` in code 1 and `fill = sex` in code 2. Look at the outputs of code 1 and code 2 and explain the different between the aesthetics `fill` and `color`.
+
+#### Question 4
+This website provides basic information on how to construct a histogram using `ggplot2`: https://r-charts.com/distribution/histogram-binwidth-ggplot2/
+
+Using the CPS85 data, provide a useful visual summary using `geom_histogram`. Number of bins is a subjective choice. Look at how the histogram's appearance changes as the number of bins is changed. 
+
+
+
+
+
+
+
+
+
+

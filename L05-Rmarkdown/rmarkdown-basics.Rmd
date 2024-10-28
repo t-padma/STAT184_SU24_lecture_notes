@@ -1,0 +1,110 @@
+---
+title: "RMarkdown basics"
+author: "Padma Tanikella"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    toc: TRUE
+  html_document: 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Main heading
+
+## R Markdown
+
+### Another sub-heading
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+-   This will **bold font**.
+
+-   This will give *italics font*
+
+-   Some bullet point
+
+    -   sub-bullet point
+    -   another sub-bullet
+
+1.  first point
+2.  second point...
+3.  third point with some bullet points
+    -   aaaa
+    -   bbbbb
+
+## Echo value
+
+Default value: `echo = TRUE`.
+
+```{r}
+# comments
+summary(cars)
+```
+
+```{r echo=FALSE}
+# comments
+summary(cars)
+```
+
+
+## include option
+
+```{r include=FALSE}
+str(cars)
+```
+
+
+```{r}
+# comments
+str(cars)
+```
+
+## Including Plots
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+## Including Maths equations
+I want to factorize the quadratic equation $ax^2 + bx +c$. Its solution is given by:
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \quad \text{ is the solution}
+$$
+
+* $a_1$ is a subscript 1. This subscript only works in math mode.
+
+* $a_{min}$ and $a^{max}$
+
+* $\mathbf{A}$ is a matrix and $\textit{v}$ is a vector.
+
+
+## Tables in RMarkdown
+
+| Class No.     | Instructor experience   | Class average  |
+|:-------------:|:-----------------------:| :-------------:|
+| 1             | low                     |     77         |
+|-------------- | ----------------------- | -------------- |
+| 2             | low                     |     69         |
+| 3             | high                    |     85         |
+| 4             | med                     |     75         |
+| 5             | high                    |     70         |
+| 6             | med                     |     85         |
+
+
+* Roses are \textcolor{red}{RED}, violets are \textcolor{blue}{BLUE}.
+
+
+
+
+
+
+
+
+
+

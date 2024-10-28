@@ -1,0 +1,61 @@
+---
+title: "Statistical Foundations"
+subtitle: "Data Computing Ch 15"
+author: Padma Tanikella
+output: 
+    html_notebook: default
+    slidy_presentation: default
+---
+
+## Experimental Design
+
+* This data set provides results adapted from an experiment in which the effects of a drug on the behavior of rats were studied.
+* The behavior under consideration was the rate at which a rat deprived of water presses a lever to obtain water.
+
+* The experiment was carried out in two parts. 
+
+### Part I
+
+* In Part I of the study, 12 male albino rats of the same strain and approximately the same weight were utilized. 
+* Prior to the experiment, each rat was trained to press a lever for water until a stable rate of pressing was reached. 
+* Two factors were studied in this experiment-initial lever press rate (factor A) and dosage of the drug (factor B).
+* The 12 rats were classified into one of three groups according to their initial lever press rate. Level-1 is a slow rate, level-2 a moderate rate, and level-3 a fast rate.  The levels were defined such that one third of the rats were classified into each of the three levels. 
+* Four dosage levels of the drug were studied, including a zero level consisting of a saline solution. All dosage levels were specified in terms of milligrams of drug per kilogram of weight of the rat. 
+* One hour after a drug dosage injection was administered, an experimental session began during which the rat received water each time after the second lever press. This reinforcement schedule will be denoted by FR-2.
+* Each rat received all four drug dosage levels in a random order. Each of the four drug dosages was administered twice, thus providing two observation units for each treatment.
+* The response variable was defined as the total number of lever presses divided by the elapsed time (in seconds) during a session for the given treatment.
+
+### Part II
+
+* In Part II of the study, another 12 albino male rats of the same strain and approximately the same weight as the rats used in Part I were used.
+* The experimental design for Part II of the study was exactly the same as for Part I, except that each rat received water each time after the fifth lever press. This reinforcement schedule will be denoted by FR-5.
+* The reinforcement schedule thus is another factor (factor C) that was studied in the combined experiment. 
+
+```{r}
+path_to_data = "C:/Users/tpr16/OneDrive - The Pennsylvania State University/Course notes/Summer 24 - Teaching STAT184/184-padma/L12-statistical-foundations/clinical_trial.txt"
+
+clinical_trial <- read.table(path_to_data)
+colnames(clinical_trial) = c("case_id","schedule", "rat_id", "initial_lever_press_rate", "dosage", "obs_unit", "lever_press_rate" )
+```
+
+
+### Discussion points
+1. Is randomization important?
+2. What can you tell about the nature of the data?
+3. What are some research questions we might want to answer using this dataset?
+4. What is the distribution of the response variable?
+4. How can we quantify uncertainity in our estimates?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
