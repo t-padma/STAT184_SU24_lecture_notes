@@ -8,4 +8,4 @@ Course materials associated with courses I am teaching/taught at Penn State.
 - Other recommended textbooks for the course are:
     * [Happy Git and GitHub for the useR](https://happygitwithr.com/), Jenny Bryan.
     * [R for Data Science](https://r4ds.hadley.nz/) by Hadley Wickham and Garrett Grolemund, 2nd Edition.
-    * [Introduction to R - tidyverse], by Brendan R. E.
+    * [Introduction to R - tidyverse](https://bookdown.org/ansellbr/WEHI_tidyR_course_book/), by Brendan R. E.
