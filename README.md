@@ -1,6 +1,3 @@
-# Teaching material
-Course materials associated with courses I am teaching/taught at Penn State.
-
 ## STAT 184: Introduction to R
 - Taught the course during Summer and Fall of 2024.
 - Primary reference for the course is:
